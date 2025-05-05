@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+    let timeout; // variable to hold the timeout ID
+    function debounceGetSimpleInterest(){
+
+      clearTimeout(timeout); // clear the timeout if the function is called again within 100ms
+       timeout= setTimeout(() => {
+        getSimpleInterest();
+      }, 100); // 100ms  delay
+
+    }
+    function getSimpleInterest(){ 
+      // debouncing , throttling
+      const inputField1 = document.getElementById('inputField1').value;
+      const inputField2 = document.getElementById('inputField2').value;
+      const inputField3 = document.getElementById('inputField3').value;
+
+      fetch('http://localhost:3000/simpleinterest', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          principal: inputField1,
+          rate: inputField2,
+          time: inputField3
+        })
+      }).then(response=> {
+        console.log(response);
+        return response.json();
+      }).then(data=>{
+        console.log(data);
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `The Simple Interest is: ${data.interest}`;
+      }).catch(error=>{
+        console.error('Error:', error);
+
+      })
+
+    }
+  </script>
+  <input type="text" id="inputField1" placeholder="Enter pricipal amount..."> <br><br>
+  <input type="number" id="inputField2" placeholder="Enter rate of interest..."> <br><br>
+  <input type="number" id="inputField3" placeholder="Enter time in years..."> <br><br>
+  <button onclick="debounceGetSimpleInterest()" id="submitButton">Calculate Simple Interest</button>
+  <br><br>
+  <div id="result"></div>
+</body>
+</html>

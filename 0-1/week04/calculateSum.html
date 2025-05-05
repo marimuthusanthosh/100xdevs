@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function getSum() {
+      const inputField1 = document.getElementById('inputField1').value;
+      const inputField2 = document.getElementById('inputField2').value;
+      const sum = parseInt(inputField1) + parseInt(inputField2);
+      console.log(`The sum is: ${sum}`);
+      document.getElementById('content').innerHTML = `The sum is: ${sum}`;
+    }
+  </script>
+
+  <input type="text" id="inputField1" placeholder="Enter first number..."> <br><br>
+  <input type="number" id="inputField2" placeholder="Enter second number..."> <br><br>
+  <button onclick="getSum()" id="submitButton">Calculate Sum</button>
+
+  <!-- Added this div to display the result -->
+  <div id="content"></div>
+</body>
+</html>
